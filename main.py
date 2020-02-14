@@ -6,8 +6,8 @@ from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel
 
 SCREEN_SIZE = [600, 450]
-COORD = '133.165599,-26.75771'
-SPN = '20.016457'
+delta = "15.005"
+longitude, lattitude = "133.165599", "-26.757718"
 
 
 class Example(QWidget):
@@ -17,14 +17,14 @@ class Example(QWidget):
         self.initUI()
 
     def getImage(self):
-        map_request = f"http://static-maps.yandex.ru/1.x/?ll={COORD}&spn={SPN},{SPN}&l=map"
-        response = requests.get(map_request)
+        map_params = {
+            "ll": ",".join([longitude, lattitude]),
+            "spn": ",".join([delta, delta]),
+            "l": "map"
+        }
 
-        if not response:
-            print("Ошибка выполнения запроса:")
-            print(map_request)
-            print("Http статус:", response.status_code, "(", response.reason, ")")
-            sys.exit(1)
+        map_api_server = "http://static-maps.yandex.ru/1.x/"
+        response = requests.get(map_api_server, params=map_params)
 
         # Запишем полученное изображение в файл.
         self.map_file = "map.png"
