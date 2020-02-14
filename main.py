@@ -38,7 +38,11 @@ class Example(QWidget):
         self.setWindowTitle('Отображение карты')
 
         ## Изображение
-        self.update_map()
+        self.pixmap = QPixmap(self.map_file)
+        self.image = QLabel(self)
+        self.image.move(0, 0)
+        self.image.resize(600, 450)
+        self.image.setPixmap(self.pixmap)
 
     def keyPressEvent(self, e):
         global delta
@@ -48,18 +52,14 @@ class Example(QWidget):
         if e.key() == Qt.Key_PageDown:
             if self.delta <= 98:
                 self.delta += 2
-                print(self.delta)
                 self.getImage()
                 self.update_map()
-                print("обновили")
 
         if e.key() == Qt.Key_PageUp:
             if self.delta >= 2.005:
                 self.delta -= 2
-                print(self.delta)
                 self.getImage()
                 self.update_map()
-                print("Обновили")
 
     def closeEvent(self, event):
         """При закрытии формы подчищаем за собой"""
@@ -67,9 +67,6 @@ class Example(QWidget):
 
     def update_map(self):
         self.pixmap = QPixmap(self.map_file)
-        self.image = QLabel(self)
-        self.image.move(0, 0)
-        self.image.resize(600, 450)
         self.image.setPixmap(self.pixmap)
 
 
