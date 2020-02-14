@@ -33,10 +33,10 @@ while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if event.button == 1:
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_PAGEUP:
                 m += 1
-            elif event.button == 3:
+            elif event.key == pygame.K_PAGEDOWN:
                 m -= 1
     draw()
     pygame.display.update()
