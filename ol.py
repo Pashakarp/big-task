@@ -25,9 +25,9 @@ def draw():
 
 
 response = None
-coords_1 = '140'
-coords_2 = '39'
-m = 3
+coords_1 = '139'
+coords_2 = '30'
+m = 13
 run = True
 while run:
     for event in pygame.event.get():
@@ -35,9 +35,15 @@ while run:
             run = False
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_PAGEUP:
-                m += 1
+                if m > 0:
+                    m -= 1
+                else:
+                    m += 0
             elif event.key == pygame.K_PAGEDOWN:
-                m -= 1
+                if m <= 13:
+                    m += 1
+                else:
+                    m += 0
     draw()
     pygame.display.update()
     pygame.display.flip()
